@@ -1,21 +1,23 @@
 import React from "react";
-import BlogPost from './Components/BlogPost/BlogPost';
+import Header from "./Components/Header/Header";
+import BlogPost from "./Components/BlogPost/BlogPost";
+import Footer from "./Components/Footer/Footer";
 
 function App() {
     const mainPost = {
         title: "My First Blog Post",
-        content: "This is the content of the blog post. Welcome to my blog! Hope you enjoy reading it.",
+        content: "Welcome to my blog! This is my first post. I hope you enjoy reading it.",
         author: "John Doe",
-        date: '2025-10-22',
+        date: "2025-10-22",
     };
 
     return (
         <div className="app-container">
-            <main className="main-content"
-                //style={{add syling here}}
-            >
+            <Header />
+            <main className="main-content">
                 <BlogPost post={mainPost} />
             </main>
+            <Footer />
         </div>
     );
 }
