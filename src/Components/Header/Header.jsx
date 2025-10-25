@@ -1,20 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 
-function Header()
-{
+function Header() {
+    const [lightMode, setLightMode] = useState(false);
+
+    const toggleTheme = () => {
+        setLightMode(!lightMode);
+        document.body.className = lightMode ? "" : "light";
+    };
+
     return (
-        <header className="blog-header" 
-        style={{
-            backgroundColor: "#282c34",
-            color: "white",
-            padding: '1rem 2rem',
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center'
-        }}>
-            <h1 className="blog-title" style={{margin: 0, fontSize: '1.5rem'}}>
-                My Blog
-            </h1>
+        <header className="site-header">
+            <h1 className="site-title">My Personal Blog</h1>
+            <nav className="main-nav">
+                <a href="#">Home</a>
+                <a href="#">About</a>
+                <a href="#">Contact</a>
+            </nav>
+            <button onClick={toggleTheme} className="theme-btn">
+                {lightMode ? "Dark Mode" : "Light Mode"}
+            </button>
         </header>
     );
 }
+
+export default Header;
