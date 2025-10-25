@@ -1,68 +1,179 @@
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+  --bg-color: #242424;
+  --text-color: #fff;
+  --card-bg: #1e1e1e;
+  --header-bg: #2c2c2c;
+  --footer-bg: #2c2c2c;
+  --accent-color: #646cff;
 }
 
 body {
   margin: 0;
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  line-height: 1.6;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+a {
+  color: var(--accent-color);
+  text-decoration: none;
+  margin: 0 0.5rem;
+}
+
+a:hover {
+  color: #535bf2;
+}
+
+.app-container {
   display: flex;
-  place-items: center;
-  min-width: 320px;
+  flex-direction: column;
   min-height: 100vh;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+.main-content {
+  flex: 1;
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
+.site-header {
+  background-color: var(--header-bg);
+  color: var(--text-color);
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.site-title {
+  margin: 0;
+}
+
+.main-nav a {
   font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+.theme-btn {
+  background-color: var(--accent-color);
+  color: #fff;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.theme-btn:hover {
+  background-color: #535bf2;
+}
+
+.post-card {
+  background-color: var(--card-bg);
+  padding: 2rem;
+  border-radius: 12px;
+  max-width: 700px;
+  width: 100%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.post-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.post-meta {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.comments {
+  margin-top: 2rem;
+}
+
+.comment-box {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 500px;
+  margin: 20px auto;
+}
+
+.comment-box textarea {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  resize: vertical;
+  font-size: 14px;
+}
+
+.comment-box button {
+  align-self: flex-end;
+  padding: 6px 12px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.comment-box button:hover {
+  background-color: #555;
+}
+
+.comment-section {
+  max-width: 500px;
+  margin: 20px auto;
+}
+
+.comment-items li {
+  margin-bottom: 0.5rem;
+  padding: 6px 10px;
+  background-color: #2a2a2a;
+  border-radius: 6px;
+}
+
+.site-footer {
+  background-color: var(--footer-bg);
+  color: var(--text-color);
+  padding: 1rem 2rem;
+  text-align: center;
+}
+
+body.light {
+  --bg-color: #ffffff;
+  --text-color: #222;
+  --card-bg: #f4f4f4;
+  --header-bg: #e0e0e0;
+  --footer-bg: #e0e0e0;
+  --accent-color: #646cff;
+}
+
+@media (max-width: 600px) {
+  .post-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
   }
-  a:hover {
-    color: #747bff;
+
+  .site-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
   }
-  button {
-    background-color: #f9f9f9;
+
+  .main-nav a {
+    margin: 0 0.25rem;
+  }
+
+  .main-content {
+    padding: 1rem;
   }
 }
