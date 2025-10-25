@@ -1,18 +1,10 @@
-import React from 'react';
+import React from "react";
 
 function CommentForm() {
   return (
-    <form className="comment-form">
-      <textarea 
-        placeholder="Add a comment"
-        //style={{}} add syling here
-      />
-      <button 
-        type="submit"
-        //style={{}} add syling here
-      >
-        Submit
-      </button>
+    <form className="comment-box">
+      <textarea placeholder="Write a comment..." />
+      <button type="submit">Post</button>
     </form>
   );
 }
