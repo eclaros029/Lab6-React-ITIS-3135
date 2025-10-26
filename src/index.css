@@ -5,6 +5,7 @@
   --header-bg: #2c2c2c;
   --footer-bg: #2c2c2c;
   --accent-color: #646cff;
+  --comment-bg: #2a2a2a;
 }
 
 body {
@@ -136,8 +137,9 @@ a:hover {
 .comment-items li {
   margin-bottom: 0.5rem;
   padding: 6px 10px;
-  background-color: #2a2a2a;
+  background-color: var(--comment-bg);
   border-radius: 6px;
+  border: 1px solid transparent;
 }
 
 .site-footer {
@@ -154,6 +156,11 @@ body.light {
   --header-bg: #e0e0e0;
   --footer-bg: #e0e0e0;
   --accent-color: #646cff;
+  --comment-bg: #e8e8e8;
+}
+
+body.light .comment-items li {
+  border: 1px solid #ccc;
 }
 
 @media (max-width: 600px) {
