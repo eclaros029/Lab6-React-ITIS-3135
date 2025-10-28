@@ -2,7 +2,7 @@ import React from "react";
 import CommentList from "../CommentList/CommentList";
 import CommentForm from "../CommentForm/CommentForm";
 
-function BlogPost({ post }) {
+function BlogPost({ post, comments, onAddComment }) {
     const { title, content, author, date } = post;
 
     return (
@@ -19,8 +19,8 @@ function BlogPost({ post }) {
 
             <section className="comments">
                 <h3>Comments</h3>
-                <CommentForm />
-                <CommentList />
+                <CommentForm onAddComment={onAddComment} />
+                <CommentList comments={comments} />
             </section>
         </article>
     );

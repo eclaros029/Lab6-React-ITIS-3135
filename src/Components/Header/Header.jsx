@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 function Header() {
     const [lightMode, setLightMode] = useState(false);
@@ -12,9 +13,8 @@ function Header() {
         <header className="site-header">
             <h1 className="site-title">My Personal Blog</h1>
             <nav className="main-nav">
-                <a href="#">Home</a>
-                <a href="#">About</a>
-                <a href="#">Contact</a>
+                <Link to="/">Blog</Link>
+                <Link to="/contact">Contact</Link>
             </nav>
             <button onClick={toggleTheme} className="theme-btn">
                 {lightMode ? "Dark Mode" : "Light Mode"}
