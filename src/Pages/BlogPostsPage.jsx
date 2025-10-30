@@ -15,6 +15,13 @@ const posts = [
         author: "Jane Doe",
         date: "2025-10-28",
         excerpt: "Today I'm implementing React Router to create a multi-page blog."
+    },
+    {
+        id: 3,
+        title: "Mastering React Router",
+        author: "Matthew Doe",
+        date: "2025-10-31",
+        excerpt: "Today I'm mastering React Router to improve a multi-page blog."
     }
 ];
 
