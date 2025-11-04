@@ -15,7 +15,7 @@ function CommentList({ comments }) {
             <ul className="comment-items">
                 {comments.map((comment) => (
                     <li key={comment.id}>
-                        <strong>{comment.name}:</strong> {comment.text}
+                        <strong>{comment.name}:</strong> {comment.body}
                     </li>
                 ))}
             </ul>

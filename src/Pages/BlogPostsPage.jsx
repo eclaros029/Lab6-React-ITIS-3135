@@ -1,31 +1,36 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-
-const posts = [
-    {
-        id: 1,
-        title: "My First Blog Post",
-        author: "John Doe",
-        date: "2025-10-22",
-        excerpt: "Welcome to my blog! This is my first post. I hope you enjoy reading it."
-    },
-    {
-        id: 2,
-        title: "Learning React Router",
-        author: "Jane Doe",
-        date: "2025-10-28",
-        excerpt: "Today I'm implementing React Router to create a multi-page blog."
-    },
-    {
-        id: 3,
-        title: "Mastering React Router",
-        author: "Matthew Doe",
-        date: "2025-10-31",
-        excerpt: "Today I'm mastering React Router to improve a multi-page blog."
-    }
-];
+import axios from "axios";
 
 function BlogPostsPage() {
+
+    const [posts, setPosts] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        const fetchPosts = async () => {
+            try {
+                const response = await axios.get('https://jsonplaceholder.typicode.com/posts');
+                setPosts(response.data);
+            } catch (err) {
+                setError(err);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchPosts();
+    }, []);
+
+    if (loading) {
+        return <p>Loading posts...</p>;
+    }
+
+    if (error) {
+        return <p>Error fetching posts: {error.message}</p>;
+    }
+
     return (
         <div className="blog-posts-list">
             <h1>All Blog Posts</h1>
@@ -33,11 +38,10 @@ function BlogPostsPage() {
                 <article key={post.id} className="post-card" style={{ marginBottom: '1.5rem' }}>
                     <header>
                         <h2><Link to={`/post/${post.id}`}>{post.title}</Link></h2>
-                        <p>{post.excerpt}</p>
+                        <p>{post.body.substring(0, 100)}...</p>
                     </header>
                     <section className="post-meta">
-                        <p><strong>Author:</strong> {post.author}</p>
-                        <p><strong>Date:</strong> {post.date}</p>
+                        <Link to={`/post/${post.id}`} className="read-more">Read More →</Link>
                     </section>
                 </article>
             ))}
