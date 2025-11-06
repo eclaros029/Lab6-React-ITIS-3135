@@ -1,60 +1,39 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
 import BlogPost from "../Components/BlogPost/BlogPost";
 
 function IndividualPostPage() {
     const { postId } = useParams();
-
     const [post, setPost] = useState(null);
     const [author, setAuthor] = useState(null);
-    const [comments, setComments] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-    
+
     useEffect(() => {
-        const fetchPostData = async () => {
-            try {
-                setLoading(true);
-                setError(null);
-
-                const postResponse = await axios.get(`https://jsonplaceholder.typicode.com/posts/${postId}`);
-                const postData = postResponse.data;
-                setPost(postData);
-
-                if (postData.userId) {
-                    const [userResponse, commentsResponse] = await Promise.all([
-                        axios.get(`https://jsonplaceholder.typicode.com/users/${postData.userId}`),
-                        axios.get(`https://jsonplaceholder.typicode.com/posts/${postId}/comments`)
-                    ]);
-                    
-                    setAuthor(userResponse.data);
-                    setComments(commentsResponse.data);
-                }
-
-            } catch (err) {
-                setError(err);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchPostData();
+        setLoading(true);
+        fetch(`https://jsonplaceholder.typicode.com/posts/${postId}`)
+            .then(res => res.json())
+            .then(data => {
+                setPost(data);
+                return data.userId;
+            })
+            .then(userId => {
+                fetch(`https://jsonplaceholder.typicode.com/users/${userId}`)
+                    .then(res => res.json())
+                    .then(data => setAuthor(data))
+                    .finally(() => setLoading(false));
+            });
     }, [postId]);
 
-    if (loading) {
-        return <p>Loading post...</p>;
-    }
+    if (loading) return <h2>Loading...</h2>;
 
-    if (error) {
-        return <p>Error fetching post: {error.message}</p>;
-    }
-    
-    if (!post || !author) {
-        return <p>Post not found.</p>;
-    }
+    const postData = {
+        title: post.title,
+        content: post.body,
+        author: author.name,
+        date: "N/A",
+    };
 
-    return <BlogPost post={post} author={author} comments={comments} />;
+    return <BlogPost post={postData} comments={[]} onAddComment={() => { }} />;
 }
 
 export default IndividualPostPage;
