@@ -1,26 +1,23 @@
 import React from "react";
 import CommentList from "../CommentList/CommentList";
-// CommentForm is part of part 4, just uncomment
-// import CommentForm from "../CommentForm/CommentForm";
+import CommentForm from "../CommentForm/CommentForm";
 
-function BlogPost({ post, author, comments }) {
-    const { title, body } = post;
-    const { name, email } = author;
-
+function BlogPost({ post, user, comments, onAddComment }) {
     return (
         <article className="post-card">
             <header>
-                <h2>{title}</h2>
-                <p>{body}</p>
+                <h2>{post.title}</h2>
+                <p>{post.body}</p>
             </header>
 
             <section className="post-meta">
-                <p><strong>Author:</strong> {name}</p>
-                <p><strong>Email:</strong> {email}</p>
+                <p><strong>Author:</strong> {user ? user.name : "Unknown"}</p>
+                <p><strong>Email:</strong> {user ? user.email : "N/A"}</p>
             </section>
 
             <section className="comments">
                 <h3>Comments</h3>
+                <CommentForm onAddComment={onAddComment} />
                 <CommentList comments={comments} />
             </section>
         </article>
