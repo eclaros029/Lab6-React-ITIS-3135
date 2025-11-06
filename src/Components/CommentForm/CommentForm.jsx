@@ -1,38 +1,55 @@
 import React, { useState } from "react";
+import axios from "axios";
 
-function CommentForm({ onAddComment }) {
+function CommentForm({ postId, onAddComment }) {
     const [name, setName] = useState("");
-    const [text, setText] = useState("");
+    const [body, setBody] = useState("");
+    const [loading, setLoading] = useState(false);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        
-        if (!name || !text) {
+
+        if (!name || !body) {
+            alert("Please fill in both fields");
             return;
         }
 
-        onAddComment({ name, text });
+        setLoading(true);
 
-        setName("");
-        setText("");
+        try {
+            const response = await axios.post(`https://jsonplaceholder.typicode.com/posts/${postId}/comments`, {
+                name: name,
+                body: body
+            });
+
+            onAddComment(response.data);
+            setName("");
+            setBody("");
+        } catch (error) {
+            console.error("Error posting comment:", error);
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
         <form className="comment-box" onSubmit={handleSubmit}>
-            <input 
-                type="text" 
+            <input
+                type="text"
                 placeholder="Your Name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 required
             />
-            <textarea 
-                placeholder="Write a comment..." 
-                value={text}
-                onChange={(e) => setText(e.target.value)}
+            <textarea
+                placeholder="Write a comment..."
+                value={body}
+                onChange={(e) => setBody(e.target.value)}
                 required
             />
-            <button type="submit">Post</button>
+            <button type="submit" disabled={loading}>
+                {loading ? "Posting..." : "Post"}
+            </button>
         </form>
     );
 }
