@@ -1,24 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import CommentList from "../CommentList/CommentList";
 import CommentForm from "../CommentForm/CommentForm";
 
-function BlogPost({ post, user, comments, onAddComment }) {
+function BlogPost({ post, author, comments }) {
+    const { title, body } = post;
+    const { name, email } = author;
+    const [commentList, setCommentList] = useState(comments);
+
+    const handleAddComment = (newComment) => {
+        setCommentList([...commentList, newComment]);
+    };
+
     return (
         <article className="post-card">
             <header>
-                <h2>{post.title}</h2>
-                <p>{post.body}</p>
+                <h2>{title}</h2>
+                <p>{body}</p>
             </header>
 
             <section className="post-meta">
-                <p><strong>Author:</strong> {user ? user.name : "Unknown"}</p>
-                <p><strong>Email:</strong> {user ? user.email : "N/A"}</p>
+                <p><strong>Author:</strong> {name}</p>
+                <p><strong>Email:</strong> {email}</p>
             </section>
 
             <section className="comments">
                 <h3>Comments</h3>
-                <CommentForm onAddComment={onAddComment} />
-                <CommentList comments={comments} />
+                <CommentList comments={commentList} />
+                <CommentForm postId={post.id} onAddComment={handleAddComment} />
             </section>
         </article>
     );
