@@ -1,15 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import CommentList from "../CommentList/CommentList";
 import CommentForm from "../CommentForm/CommentForm";
 
-function BlogPost({ post, author, comments }) {
+function BlogPost({ post, author, comments, onAddComment }) {
     const { title, body } = post;
     const { name, email } = author;
-    const [commentList, setCommentList] = useState(comments);
-
-    const handleAddComment = (newComment) => {
-        setCommentList([...commentList, newComment]);
-    };
 
     return (
         <article className="post-card">
@@ -25,8 +20,8 @@ function BlogPost({ post, author, comments }) {
 
             <section className="comments">
                 <h3>Comments</h3>
-                <CommentList comments={commentList} />
-                <CommentForm postId={post.id} onAddComment={handleAddComment} />
+                <CommentList comments={comments} />
+                <CommentForm onAddComment={onAddComment} />
             </section>
         </article>
     );

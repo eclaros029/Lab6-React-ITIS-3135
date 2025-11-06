@@ -67,7 +67,7 @@ function IndividualPostPage() {
     
     return <BlogPost 
                 post={post} 
-                user={author} 
+                author={author} 
                 comments={comments} 
                 onAddComment={handleAddComment} 
             />;
