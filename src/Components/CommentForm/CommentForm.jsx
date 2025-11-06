@@ -2,19 +2,19 @@ import React, { useState } from "react";
 
 function CommentForm({ onAddComment }) {
     const [name, setName] = useState("");
-    const [text, setText] = useState("");
+    const [body, setBody] = useState("");
 
     const handleSubmit = (e) => {
         e.preventDefault();
         
-        if (!name || !text) {
+        if (!name || !body) {
             return;
         }
 
-        onAddComment({ name, text });
+        onAddComment({ name, body });
 
         setName("");
-        setText("");
+        setBody("");
     };
 
     return (
@@ -28,8 +28,8 @@ function CommentForm({ onAddComment }) {
             />
             <textarea 
                 placeholder="Write a comment..." 
-                value={text}
-                onChange={(e) => setText(e.target.value)}
+                value={body}
+                onChange={(e) => setBody(e.target.value)}
                 required
             />
             <button type="submit">Post</button>

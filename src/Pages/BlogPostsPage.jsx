@@ -3,12 +3,24 @@ import { Link } from "react-router-dom";
 
 function BlogPostsPage() {
     const [posts, setPosts] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         fetch("https://jsonplaceholder.typicode.com/posts")
-            .then(res => res.json())
-            .then(data => setPosts(data.slice(0, 10)));
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error("Network response was not ok");
+                }
+                return res.json();
+            })
+            .then(data => setPosts(data.slice(0, 10)))
+            .catch(err => setError(err))
+            .finally(() => setLoading(false));
     }, []);
+
+    if (loading) return <h2>Loading posts...</h2>;
+    if (error) return <h2>Error: {error.message}</h2>;
 
     return (
         <div className="blog-posts-list">
